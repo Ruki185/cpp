@@ -1,0 +1,19 @@
+Assignment 5 - Immutable String
+Die Klasse ImmutableString soll eine Zeichenkette darstellen, die sich (wie in Java) nicht weiter verändern lässt. Durch Zusammensetzen (concat) von zwei ImmutableString-Instanzen entsteht eine neue Instanz.
+
+Jede Instanz muss Speicher für die Zeichenkette verwalten. Diese wird, wie in C üblich, mit einem zusätzlichen '\x0' Zeichen abgeschlossen. (Auch alle String-Literale, z.B. "Hallo!", enden so.)
+
+Ziel der Aufgabe ist es, das Schlüsselwort const richtig zu verwenden. In der Regel bedeutet das “wo immer möglich”! Das Beispiel in example.cpp hilft Euch dabei zu sehen, wo const nötig ist, so dass es (ohne Warnungen oder Fehler) übersetzt werden kann.
+
+Ergänze in immstring.hpp das Schlüsselwort const überall dort, wo es sinnvoll ist. Implementiere dann die deklarierten Konstruktoren, Methoden und den Destruktor.
+
+⚠ Fehler bei der Verwendung von const führen dazu, dass euer Programm nicht kompiliert. Daher heben wir für diese Aufgabe die Bedingung auf, dass ihr fehlerlos kompilierenden Code einreichen müsst, um eine Votierung bekommen zu können.
+
+Hinweise
+Du kannst die Funktionen aus dem Header <cstring> der Standardlibrary benutzen, um Dir die Arbeit mit null-terminierten Zeichenketten zu erleichtern. Dieser Header enthält Funktionen wie std::strlen, std::strncpy und std::strncat, die bei der Lösung der Aufgabe hilfreich sein könnten.
+
+Core Guidelines:
+http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rconst-immutable
+http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rconst-fct
+http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rconst-ref
+http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rconst-const

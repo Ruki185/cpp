@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mnt/Volume/Uni/Grundlagen der C++-Programmierung/Übungen/Aufgabe 6/exptree.cpp
+exptree.hpp
+/mnt/Volume/Uni/Grundlagen der C++-Programmierung/Übungen/Aufgabe 6/exptree.hpp
+
+/mnt/Volume/Uni/Grundlagen der C++-Programmierung/Übungen/Aufgabe 6/exptree.hpp
+string
+-
+
+/mnt/Volume/Uni/Grundlagen der C++-Programmierung/Übungen/Aufgabe 6/main.cpp
+iostream
+-
+exptree.hpp
+/mnt/Volume/Uni/Grundlagen der C++-Programmierung/Übungen/Aufgabe 6/exptree.hpp
+
