@@ -17,7 +17,7 @@ namespace a08 {
  * This class represents a linked list. It supports constant time insertion and
  * removal of elements anywhere in the list.
  */
-  template<typename T, std::size_t N>
+  template<typename T>
   class ForwardList {
       /**
        * This internal class represents a node of the linked list holding a data
@@ -75,32 +75,39 @@ namespace a08 {
           /// stored at the current position in the list. If the iterator does not
           /// point to a valid node, the behavior is undefined.
           T& operator*() {
-
+            return node.data;
           }
 
           /// Pre-increment (++it). Advances the iterator to the next element
           /// and returns the modified iterator. If the iterator does not
           /// point to a valid node, the behavior is undefined.
           Iterator operator++() {
-            this->index += 1;
-            return this;
+            if(node.next != nullptr) {
+              this->node = node.next;
+            }
+            return *this;
           }
 
           /// Post-increment (it++). Advances the iterator to the next element
           /// and returns a copy of the previous value. If the iterator does not
           /// point to a valid node, the behavior is undefined.
           T operator++(int) const {
-            /* ToDo */
+            auto temp = this->node;
+            if(this->node.next != nullptr) {
+              this->node = node.next;
+            }
+            return *temp;
+
           }
 
           /// Returns true if two iterators refer to the same elements in the list.
           bool operator==(const Iterator& other) const {
-            /* ToDo */
+            return this->node == other.node;
           }
 
           /// Returns true if two iterators do not refer to the same element.
           bool operator!=(const Iterator& other) const {
-            /* ToDo */
+            return this->node != other.node;
           }
       private:
           /// The constructor of iterator is private and ForwardList is listed
@@ -108,22 +115,21 @@ namespace a08 {
           /// instances of its Iterator class and users of ForwardList can not
           /// create iterators to random locations.
           friend class ForwardList;
-          Iterator(???) {
-            /* ToDo */
+          Iterator(Node &node) {
+            this->node = &node;
           }
-          T data[N];
-          std::size_t index;
+          Node* node;
           // ToDo: Data member(s)?
       };
 
       /// Default constructor creates an empty list
       ForwardList() {
         this->node = new Node();
-        this->size = 0;
+        this->_size = 0;
       }
       /// Copy constructor performs a deep copy of the other list's Nodes
       ForwardList(const ForwardList& other) {
-
+        this->node = other.node->clone();
       }
       /// Destructor makes sure that all Nodes are correctly destroyed
       ~ForwardList() {
@@ -139,7 +145,7 @@ namespace a08 {
 
       /// Return an iterator to the first element of the list
       Iterator begin() {
-
+        return Iterator(this->node);
       }
 
       /// Return an iterator to one-past-the-end of the list. A common trick for
@@ -148,7 +154,10 @@ namespace a08 {
       /// Dereferencing or incrementing the iterator returned by end() is undefined
       /// behavior.
       Iterator end() {
-        /* ToDo */
+        auto* node = this->node;
+        while(node->next != nullptr)
+          node = node->next;
+        return Iterator(node);
       }
 
       /// Add an element to the front of the list.
@@ -157,20 +166,20 @@ namespace a08 {
         node.next = this->node;
         this->node = node;
         node.data = value;
-        this->size += 1;
+        this->_size += 1;
       }
 
       /// Remove the first element of the list. Calling this function on an empty
       /// list is undefined behavior. When implementing this function, be careful
       /// to delete the one and only the one element that is removed.
       void pop_front() {
-        if(this->size == 0)
+        if(this->_size == 0)
           return;
         auto temp = this->node;
         this->node = node.next;
         temp->next = nullptr;
         delete temp;
-        this->size -= 1;
+        this->_size -= 1;
       }
 
       /// Get a reference to the first element of the list
@@ -184,7 +193,7 @@ namespace a08 {
 
       /// Return true is the list is empty
       bool empty() const {
-        if(this->size == 0)
+        if(this->_size == 0)
           return true;
         else
           return false;
@@ -192,13 +201,18 @@ namespace a08 {
 
       /// Return the number of elements stored in the list.
       std::size_t size() const {
-        return this->size;
+        return this->_size;
       }
 
       /// Insert a new element after the one pointed to by the given Iterator.
       /// Returns an Iterator to the newly inserted element
       Iterator insert_after(Iterator pos, T value) {
-        /* ToDo */
+        auto temp = new Node();
+        temp->data = value;
+        temp->next = pos.node->next;
+        pos.node->next = temp;
+        auto pos_new = new Iterator(temp);
+        return pos_new;
       }
 
       /// Swaps the contents of two ForwardLists without making any deep copies!
@@ -206,12 +220,18 @@ namespace a08 {
       /// cheaply swap two objects of the same class, and that aids in
       /// implementing the assignment operator using the copy-and-swap idiom.
       friend void swap(ForwardList& l, ForwardList& r) {
-        /* ToDo */
+        auto node_tmp = l.node;
+        auto size_tmp = l._size;
+
+        l._size = r._size;
+        l.node = r.node;
+        r.node = node_tmp;
+        r._size = size_tmp;
       }
 
   private:
       Node* node;
-      std::size_t size;
+      std::size_t _size;
       // ToDo: Data member(s)?
   };
 
