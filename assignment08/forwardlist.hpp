@@ -82,21 +82,19 @@ namespace a08 {
           /// and returns the modified iterator. If the iterator does not
           /// point to a valid node, the behavior is undefined.
           Iterator operator++() {
-            if(node->next != nullptr) {
-              node = node->next;
-            }
+            node = node->next;
             return *this;
           }
 
           /// Post-increment (it++). Advances the iterator to the next element
           /// and returns a copy of the previous value. If the iterator does not
           /// point to a valid node, the behavior is undefined.
-          T operator++(int) const {
+          Iterator operator++(int) const {
             auto temp = this->node;
             if(node->next != nullptr) {
               node = node->next;
             }
-            return *temp;
+            return Iterator(temp);
 
           }
 
@@ -107,7 +105,7 @@ namespace a08 {
 
           /// Returns true if two iterators do not refer to the same element.
           bool operator!=(const Iterator& other) const {
-            return this->node != other.node;
+            return !(*this == other);
           }
       private:
           /// The constructor of iterator is private and ForwardList is listed
@@ -130,6 +128,7 @@ namespace a08 {
       /// Copy constructor performs a deep copy of the other list's Nodes
       ForwardList(const ForwardList& other) {
         this->node = other.node->clone();
+        this->_size = other._size;
       }
       /// Destructor makes sure that all Nodes are correctly destroyed
       ~ForwardList() {
@@ -154,17 +153,13 @@ namespace a08 {
       /// Dereferencing or incrementing the iterator returned by end() is undefined
       /// behavior.
       Iterator end() {
-        auto* node = this->node;
-        while(node->next != nullptr)
-          node = node->next;
-        return Iterator(node);
+        return Iterator(nullptr);
       }
 
       /// Add an element to the front of the list.
       void push_front(const T& value) {
-        auto node = new Node(value, this->node);
+        this->node = new Node(value, this->node);
         //node.next = this->node;
-        this->node = node;
         //node.data = value;
         this->_size += 1;
       }
@@ -176,7 +171,7 @@ namespace a08 {
         if(this->_size == 0)
           return;
         auto temp = this->node;
-        this->node = node.next;
+        this->node = this->node->next;
         temp->next = nullptr;
         delete temp;
         this->_size -= 1;
@@ -185,10 +180,10 @@ namespace a08 {
       /// Get a reference to the first element of the list
       /// (const and non-const version)
       T& front() {
-        return &node->data;
+        return this->node->data;
       }
       const T& front() const {
-        return &node->data;
+        return this->node->data;
       }
 
       /// Return true is the list is empty
@@ -207,6 +202,7 @@ namespace a08 {
       /// Insert a new element after the one pointed to by the given Iterator.
       /// Returns an Iterator to the newly inserted element
       Iterator insert_after(Iterator pos, T value) {
+        _size += 1;
         auto temp = new Node(value, pos.node->next);
         pos.node->next = temp;
         return Iterator(temp);

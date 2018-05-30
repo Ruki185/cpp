@@ -1,3 +1,0 @@
-/mnt/Volume/Uni/Grundlagen der C++-Programmierung/Übungen/assignment08/build/CMakeFiles/rebuild_cache.dir
-/mnt/Volume/Uni/Grundlagen der C++-Programmierung/Übungen/assignment08/build/CMakeFiles/a08.dir
-/mnt/Volume/Uni/Grundlagen der C++-Programmierung/Übungen/assignment08/build/CMakeFiles/edit_cache.dir
