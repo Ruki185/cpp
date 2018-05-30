@@ -4,8 +4,7 @@
 
 using namespace a08;
 
-int main()
-{
+int main() {
     ForwardList<int> list;
 
     list.push_front(1);
