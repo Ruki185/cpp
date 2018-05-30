@@ -75,15 +75,15 @@ namespace a08 {
           /// stored at the current position in the list. If the iterator does not
           /// point to a valid node, the behavior is undefined.
           T& operator*() {
-            return node.data;
+            return node->data;
           }
 
           /// Pre-increment (++it). Advances the iterator to the next element
           /// and returns the modified iterator. If the iterator does not
           /// point to a valid node, the behavior is undefined.
           Iterator operator++() {
-            if(node.next != nullptr) {
-              this->node = node.next;
+            if(node->next != nullptr) {
+              node = node->next;
             }
             return *this;
           }
@@ -93,8 +93,8 @@ namespace a08 {
           /// point to a valid node, the behavior is undefined.
           T operator++(int) const {
             auto temp = this->node;
-            if(this->node.next != nullptr) {
-              this->node = node.next;
+            if(node->next != nullptr) {
+              node = node->next;
             }
             return *temp;
 
@@ -115,8 +115,8 @@ namespace a08 {
           /// instances of its Iterator class and users of ForwardList can not
           /// create iterators to random locations.
           friend class ForwardList;
-          Iterator(Node &node) {
-            this->node = &node;
+          Iterator(Node* node) {
+            this->node = node;
           }
           Node* node;
           // ToDo: Data member(s)?
@@ -124,8 +124,8 @@ namespace a08 {
 
       /// Default constructor creates an empty list
       ForwardList() {
-        this->node = new Node();
-        this->_size = 0;
+        node = nullptr;
+        _size = 0;
       }
       /// Copy constructor performs a deep copy of the other list's Nodes
       ForwardList(const ForwardList& other) {
@@ -162,10 +162,10 @@ namespace a08 {
 
       /// Add an element to the front of the list.
       void push_front(const T& value) {
-        auto node = new Node();
-        node.next = this->node;
+        auto node = new Node(value, this->node);
+        //node.next = this->node;
         this->node = node;
-        node.data = value;
+        //node.data = value;
         this->_size += 1;
       }
 
@@ -207,12 +207,9 @@ namespace a08 {
       /// Insert a new element after the one pointed to by the given Iterator.
       /// Returns an Iterator to the newly inserted element
       Iterator insert_after(Iterator pos, T value) {
-        auto temp = new Node();
-        temp->data = value;
-        temp->next = pos.node->next;
+        auto temp = new Node(value, pos.node->next);
         pos.node->next = temp;
-        auto pos_new = new Iterator(temp);
-        return pos_new;
+        return Iterator(temp);
       }
 
       /// Swaps the contents of two ForwardLists without making any deep copies!

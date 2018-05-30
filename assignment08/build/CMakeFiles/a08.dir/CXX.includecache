@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mnt/Volume/Uni/Grundlagen der C++-Programmierung/Übungen/assignment08/forwardlist.hpp
+cstdint
+-
+utility
+-
+
+/mnt/Volume/Uni/Grundlagen der C++-Programmierung/Übungen/assignment08/main.cpp
+forwardlist.hpp
+/mnt/Volume/Uni/Grundlagen der C++-Programmierung/Übungen/assignment08/forwardlist.hpp
+iostream
+-
+
