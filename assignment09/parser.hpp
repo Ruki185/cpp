@@ -27,9 +27,9 @@ public:
      /* Parses a single point and puts it into the container.*/
      void parsePoint(StreamT& stream, PointContainer& container) {
        int px,py;
-       std::string anfang, ende;
+       std::string start, end;
 
-       stream >> anfang >> px >> py >> ende;
+       stream >> start >> px >> py >> end;
        container.push_back(Point(px, py));
      }
 private:
