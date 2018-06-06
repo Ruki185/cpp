@@ -8,6 +8,8 @@ Renderer::Renderer(int rows, int colums)
 
 }
 
+//own comp / unique functions because the std ones didn't work properly
+//(std in like "build in by sort / erase")
 bool _comp(Point x, Point y) {
   if (x.y < y.y) {
     return true;
@@ -36,15 +38,15 @@ void sortCont(PointContainer& points) {
 void Renderer::draw(PointContainer& points) {
   sortCont(points);
   int index = 0;
-  for(int pos_y = 0; pos_y < m_colums; pos_y++) {
-    for(int pos_x = 0; pos_x < m_rows; pos_x++) {
-      if(points[index].x == pos_x && points[index].y == pos_y)
+  for(int pos_y = 0; pos_y < m_rows; pos_y++) {
+    for(int pos_x = 0; pos_x < m_colums; pos_x++) {
+      if(points[index].x == pos_x && points[index].y == pos_y) {
         std::cout << "#";
+        index++;
+      }
       else
         std::cout << " ";
-      index++;
-      if(pos_x == m_rows-1)
-        std::cout << std::endl;
     }
+    std::cout << "\n";
   }
 }
