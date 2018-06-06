@@ -2,8 +2,7 @@
 #include "point.hpp"
 #include <vector>
 
-class Renderer
-{
+class Renderer {
 public:
     /* Initialize the Renderer with the given console size.
      * To correctly display the example data it needs to be at least 120,30.

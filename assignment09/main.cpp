@@ -10,6 +10,6 @@ using namespace std;
  *       * draw the points with the Renderer
  */
 
-int main()
-{
+int main() {
+  
 }
