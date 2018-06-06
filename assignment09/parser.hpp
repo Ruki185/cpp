@@ -19,7 +19,7 @@ public:
 
 
        while (std::getline(stream, ln)) {
-         std:stringstream strstream(ln);
+         std::stringstream strstream(ln);
          parser.parsePoint(strstream, container);
        }
 

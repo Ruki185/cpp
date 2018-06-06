@@ -1,4 +1,5 @@
 #include <fstream>
+#include <sstream>
 #include "parser.hpp"
 #include "renderer.hpp"
 
@@ -11,5 +12,13 @@ using namespace std;
  */
 
 int main() {
-  
+  ifstream data("data.txt");
+  Parser<ifstream> parser;
+  PointContainer points;
+  Renderer renderer(30, 120);
+
+  parser.parse(data, points);
+  renderer.draw(points);
+
+  return 0;
 }
